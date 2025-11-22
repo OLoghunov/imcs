@@ -53,11 +53,11 @@ imcs/
 │   ├── encoder.py        # Реализация кодера
 │   ├── decoder.py        # Реализация декодера
 │   └── utils.py          # Вспомогательные функции
-├── test_imcs/             # Тесты (102 теста)
+├── test_imcs/             # Тесты
 │   ├── conftest.py       # Fixtures
-│   ├── test_encoder.py   # Тесты encoder (31 тест)
-│   ├── test_decoder.py   # Тесты decoder (25 тестов)
-│   └── test_utils.py     # Тесты utils (46 тестов)
+│   ├── test_encoder.py   # Тесты encoder
+│   ├── test_decoder.py   # Тесты decoder
+│   └── test_utils.py     # Тесты utils
 ├── venv/                  # Виртуальное окружение
 ├── main.py               # Точка входа в приложение
 ├── requirements.txt      # Зависимости проекта
@@ -105,29 +105,6 @@ reconstructed = decoder.decode(compressed)
 
 Проект использует pytest для тестирования. Все тесты находятся в директории `test_imcs/`.
 
-### Особенности тестов
-
-Тесты написаны с использованием `@pytest.mark.parametrize` для эффективного тестирования различных входных данных и сценариев.
-
-**Пример параметризованного теста:**
-
-```python
-@pytest.mark.parametrize("compression_ratio,sparsity_basis", [
-    (0.5, 'dct'),
-    (0.3, 'wavelet'),
-    (0.7, 'dct'),
-])
-def test_encoder_initialization(compression_ratio, sparsity_basis):
-    """Test that encoder initializes with valid parameters."""
-    encoder = IMCSEncoder(compression_ratio=compression_ratio, sparsity_basis=sparsity_basis)
-    assert encoder.compression_ratio == compression_ratio
-    assert encoder.sparsity_basis == sparsity_basis
-```
-
-Такой подход позволяет автоматически запускать один и тот же тест с разными параметрами.
-
-**Подробные примеры команд см. в файле `TEST_COMMANDS.md`**
-
 ### Запуск всех тестов
 
 ```bash
@@ -173,49 +150,6 @@ make test-filter FILTER=utils
 make test-filter FILTER=initialization
 ```
 
-### Запуск тестов с покрытием кода
-
-```bash
-pytest --cov=imcs --cov-report=html --cov-report=term
-```
-
-После выполнения откройте `htmlcov/index.html` в браузере для просмотра детального отчета.
-
-### Запуск тестов с подробным выводом
-
-```bash
-pytest -v
-```
-
-### Запуск только не пропущенных тестов
-
-```bash
-pytest -v --ignore-glob="*skip*"
-```
-
-### Маркеры тестов
-
-В проекте используются следующие маркеры для категоризации тестов:
-
-- `@pytest.mark.slow` - медленные тесты
-- `@pytest.mark.integration` - интеграционные тесты
-- `@pytest.mark.unit` - unit-тесты
-- `@pytest.mark.encoder` - тесты кодера
-- `@pytest.mark.decoder` - тесты декодера
-- `@pytest.mark.utils` - тесты утилит
-
-Запуск тестов по маркерам:
-```bash
-# Запустить только unit-тесты
-pytest -m unit
-
-# Запустить все тесты кроме медленных
-pytest -m "not slow"
-
-# Запустить только тесты кодера
-pytest -m encoder
-```
-
 ## Разработка
 
 ### Форматирование кода
@@ -236,12 +170,6 @@ make lint
 
 # Или напрямую
 flake8 imcs test_imcs
-```
-
-### Очистка временных файлов
-
-```bash
-make clean
 ```
 
 ### Деактивация виртуального окружения
@@ -280,8 +208,8 @@ deactivate
 
 ## Автор
 
-Дипломная работа
+Oleg Y. Logunov
 
 ## Лицензия
 
-MIT License (или укажите вашу лицензию)
+MIT License
